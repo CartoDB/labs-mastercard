@@ -1,6 +1,7 @@
 html, body, #map {
   height: 100%;
   font-family: Frutiger, 'Istok Web',  "Frutiger Linotype", Arial, sans-serif;
+  background: lightgray;
 }
 
 #back {

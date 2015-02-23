@@ -18,12 +18,12 @@
       #dma_tight_arcs{
         ::glowY{
           line-width: 2;
-          line-color: #FFFFB2;
+          line-color: #fff;
           line-opacity:0.7;
           image-filters: agg-stack-blur(1,1);
         }
-        line-width: 1;
-        line-opacity: 0.7;
+        line-width: 2;
+        line-opacity: 1;
         line-color: #FFFFB2;
         line-cap: round;
         line-comp-op: multiply;
@@ -31,41 +31,41 @@
       }
       #dma_tight_arcs [ cntryrankwithindma <= 13] {
         line-color: #FED976;
-        line-width: 2;
+        line-width: 2.5;
       }
       #dma_tight_arcs [ cntryrankwithindma <= 8] {
         line-color: #FEB24C;
-        line-width: 2.5;
+        line-width: 3;
       }
       #dma_tight_arcs [ cntryrankwithindma <= 5] {
         line-color: #FD8D3C;
-        line-width: 3;
+        line-width: 3.5;
       }
       #dma_tight_arcs [ cntryrankwithindma <= 3] {
         ::glowY{
-          line-width: 3.5;
-          line-color: #FC4E2A;
+          line-width: 4;
+          line-color: #aaa;
           image-filters: agg-stack-blur(3,3);
         }
-        line-width: 3.5;
+        line-width: 4;
         line-color: #FC4E2A;
       }
       #dma_tight_arcs [ cntryrankwithindma <= 2] {
         ::glowY{
-          line-width: 4;
-          line-color: #E31A1C;
+          line-width: 5;
+          line-color: #aaa;
           image-filters: agg-stack-blur(4,4);
         }
-        line-width: 4;
+        line-width: 5;
         line-color: #E31A1C;
       }
       #dma_tight_arcs [ cntryrankwithindma <= 1] {
         ::glowZ{
-          line-width: 4.5;
+          line-width: 6;
           line-color: #B10026;
-          image-filters: agg-stack-blur(5,5);
+          image-filters: agg-stack-blur(6,6);
         }
-        line-width: 4.5;
+        line-width: 6;
         line-color: #B10026;
       }
     </script>
@@ -235,7 +235,7 @@
           // Number - Pixel offset from point x to tooltip edge
           tooltipXOffset: 10,
           // String - Template string for single tooltips
-          tooltipTemplate: "<%if (label){%><%=label%>",
+          tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
           // String - Template string for multiple tooltips
           multiTooltipTemplate: "<%= value %>",
           // Function - Will fire on animation progression.
@@ -280,7 +280,7 @@
 
         }
         function setupChart(dmaname, crdhldrcntry,cntryname){
-          $('.loc').text(dmaname);
+          $('.loc').text(dmaname.split('-')[0]);
           $('.cnt').text(cntryname);
           var sql = cartodb.SQL({ user: 'andrew' });
               sql.execute("SELECT dmaname,crdhldrcntry,merchdma,indgroup,shareoftransindex::int FROM dma_polar_area WHERE dmaname = '"+dmaname+"' AND crdhldrcntry='"+crdhldrcntry+"'").done(function(data) {
