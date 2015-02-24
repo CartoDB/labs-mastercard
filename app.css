@@ -87,6 +87,11 @@ html, body, #map {
     border-left: 58px solid transparent;
     left: -58px;
   }
+.title-decoration-brand {
+  position: absolute;
+  right: 20px;
+  top: 17px;
+}
 .title {
   background: #EC6633;
   color: #fff;
