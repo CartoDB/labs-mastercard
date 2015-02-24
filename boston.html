@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mastercard</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
+    <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'>
+    <link href='reset.css' rel='stylesheet' type='text/css'>
+    <link href='app.css' rel='stylesheet' type='text/css'>
+    <script src="Chart.min.js"></script>
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.ie.css" />
+    <![endif]-->
+    <style>
+      #form{ position: absolute;bottom: 32px; right: 80px;z-index: 100;}
+      .styled-select {
+         height: 29px;
+         overflow: hidden;
+         background-color: transparent;
+         float: left;
+      }
+
+      .styled-select.month {
+         width: 80px;
+         text-align: left;
+       }
+      .styled-select.day.january{
+         display: none;
+       }
+      .styled-select.day {
+         width: 30px;
+       }
+      .styled-select.hour {
+         width: 50px;
+       }
+      .styled-select select {
+         background: transparent;
+         border: none;
+         font-size: 14px;
+         height: 29px;
+         padding: 5px; /* If you add too much padding here, the options won't show in IE */
+         width: 100px;
+      }
+       .styled-select select    { color: #000; }
+    </style>
+    <script type="cartocss/html" id="choro_template">
+#bosdma{
+  polygon-fill: #ccc;
+  polygon-opacity: 0.5;
+  line-color: #eee;
+  line-width: 1;
+  line-opacity: 1;
+}
+#bosdma [ hrlytransindex <= 280] {
+   polygon-fill: #C1373C;
+   polygon-opacity: 1;
+}
+#bosdma [ hrlytransindex <= 240] {
+   polygon-fill: #CC4E52;
+}
+#bosdma [ hrlytransindex <= 200] {
+   polygon-fill: #D4686C;
+}
+#bosdma [ hrlytransindex <= 160] {
+   polygon-fill: #DB8286;
+}
+#bosdma [ hrlytransindex <= 120] {
+   polygon-fill: #E39D9F;
+}
+#bosdma [ hrlytransindex <= 80] {
+   polygon-fill: #EBB7B9;
+}
+#bosdma [ hrlytransindex <= 40] {
+   polygon-fill: #F2D2D3;
+}
+    </script>
+  </head>
+  <body>
+    <div class="title-container">
+      <div class="title">
+        <div id="back" class="hide"></div>
+        <div class="title-txt">
+          <h1>Local Commerce / Global Scale</h1>
+          <h2>A partnership between MasterCard and CartoDB</h2>
+        </div>
+      </div>
+      <div class="title-decoration">
+        <div class="title-decoration-brand">
+          <img src="img/brands.png" alt="mastercard and cartodb" />
+        </div>
+
+      </div>
+    </div>
+    
+
+    <div id="form">
+      <div class="styled-select month">
+        <select>
+          <option value="1">December</option>
+          <option value="2">January</option>
+        </select>
+      </div>
+      <div class="styled-select day december">
+        <select>
+          <option SELECTED>14</option>
+          <option>15</option>
+          <option>16</option>
+          <option>17</option>
+          <option>18</option>
+          <option>19</option>
+          <option>20</option>
+          <option>21</option>
+          <option>22</option>
+          <option>23</option>
+          <option>24</option>
+          <option>25</option>
+          <option>26</option>
+          <option>27</option>
+          <option>28</option>
+          <option>29</option>
+          <option>30</option>
+          <option>31</option>
+        </select>
+      </div>
+      <div class="styled-select day january">
+        <select>
+          <option SELECTED>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+        </select>
+      </div>
+      <div class="styled-select hour">
+        <select>
+          <option value="0">0:00</option>
+          <option value="3">3:00</option>
+          <option value="6">6:00</option>
+          <option value="9">9:00</option>
+          <option SELECTED value="12">12:00</option>
+          <option value="15">15:00</option>
+          <option value="18">18:00</option>
+          <option value="21">21:00</option>
+          <option value="24">24:00</option>
+        </select>
+      </div>
+    </div>
+    
+    
+    <div id="map"></div>
+    <!-- include cartodb.js library -->
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.12/cartodb.uncompressed.js"></script>
+
+    <script>
+      function main() {
+        var centerD = [42.338, -71.153];
+        var zoomD = 10;
+
+        var map = L.map('map', { 
+          center: centerD,
+          zoom: zoomD
+        })
+
+        function makeSql(m,d,h){
+          return "SELECT the_geom, the_geom_webmercator, (SELECT hrlytransindex FROM bosdma WHERE month = "+m+" and day = "+d+" and hourband = "+h+" AND merchzip = u.zcta5ce10) as hrlytransindex FROM us_zip_codes_2013_mc u";
+        }
+        L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',{
+          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+        }).addTo(map);
+
+        var m = 1, d = 14, h = 12;
+        // add cartodb layer with one sublayer
+        cartodb.createLayer(map, {
+          user_name: 'andrew',
+          type: 'cartodb',
+          sublayers: [{
+             sql: makeSql(m,d,h),
+             cartocss: $('#choro_template').html()
+          }]
+        })
+        .addTo(map)
+        .done(function(layer) {
+
+          $('.month').on('change',function(e){
+            m = parseInt($('.month select').val()) ;
+            if (m ==1){
+              $('.january').hide();$('.december').show();
+              d = $('.december select').val();
+            }
+            else if (m ==2){$('.january').show();$('.december').hide();
+              d = $('.january select').val();
+            }
+            console.log(m)
+            
+            layer.getSubLayer(0).setSQL(makeSql(m,d,h))
+          });
+            
+          $('.hour').on('change',function(e){
+            h = $('.hour select').val()
+            layer.getSubLayer(0).setSQL(makeSql(m,d,h))
+          });
+
+          $('.january').on('change',function(e){
+            d = $('.january select').val()
+            layer.getSubLayer(0).setSQL(makeSql(m,d,h))
+          });
+          $('.december').on('change',function(e){
+            d = $('.december select').val()
+            layer.getSubLayer(0).setSQL(makeSql(m,d,h))
+          });
+        });
+      }
+
+      window.onload = main;
+    </script>
+  </body>
+</html>
