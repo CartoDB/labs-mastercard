@@ -46,34 +46,28 @@
        .styled-select select    { color: #000; }
     </style>
     <script type="cartocss/html" id="choro_template">
-#bosdma{
-  polygon-fill: #ccc;
+#us_zip_codes_2013_mc{
+  polygon-fill: transparent;
   polygon-opacity: 0.5;
-  line-color: #eee;
+  line-color: #5199db;
   line-width: 1;
-  line-opacity: 1;
+  line-opacity: 0.3;
 }
-#bosdma [ hrlytransindex <= 280] {
-   polygon-fill: #C1373C;
+#us_zip_codes_2013_mc [ band <= 5] {
+   polygon-fill: #a50f15;
    polygon-opacity: 1;
 }
-#bosdma [ hrlytransindex <= 240] {
-   polygon-fill: #CC4E52;
+#us_zip_codes_2013_mc [ band <= 4] {
+   polygon-fill: #de2d26;
 }
-#bosdma [ hrlytransindex <= 200] {
-   polygon-fill: #D4686C;
+#us_zip_codes_2013_mc [ band <= 3] {
+   polygon-fill: #fb6a4a;
 }
-#bosdma [ hrlytransindex <= 160] {
-   polygon-fill: #DB8286;
+#us_zip_codes_2013_mc [ band <= 2] {
+   polygon-fill: #fcae91;
 }
-#bosdma [ hrlytransindex <= 120] {
-   polygon-fill: #E39D9F;
-}
-#bosdma [ hrlytransindex <= 80] {
-   polygon-fill: #EBB7B9;
-}
-#bosdma [ hrlytransindex <= 40] {
-   polygon-fill: #F2D2D3;
+#us_zip_codes_2013_mc [ band <= 1] {
+   polygon-fill: #fee5d9;
 }
     </script>
   </head>
@@ -99,12 +93,12 @@
       <div class="styled-select month">
         <select>
           <option value="1">January</option>
-          <option value="2">February</option>
+          <option SELECTED value="2">February</option>
         </select>
       </div>
-      <div class="styled-select day december">
+      <div class="styled-select day january">
         <select>
-          <option SELECTED>14</option>
+          <option>14</option>
           <option>15</option>
           <option>16</option>
           <option>17</option>
@@ -121,14 +115,14 @@
           <option>28</option>
           <option>29</option>
           <option>30</option>
-          <option>31</option>
+          <option SELECTED>31</option>
         </select>
       </div>
-      <div class="styled-select day january">
+      <div class="styled-select day february">
         <select>
-          <option SELECTED>1</option>
+          <option>1</option>
           <option>2</option>
-          <option>3</option>
+          <option SELECTED>3</option>
           <option>4</option>
           <option>5</option>
           <option>6</option>
@@ -165,13 +159,14 @@
         })
 
         function makeSql(m,d,h){
-          return "SELECT the_geom, the_geom_webmercator, (SELECT hrlytransindex FROM bosdma WHERE month = "+m+" and day = "+d+" and hourband = "+h+" AND merchzip = u.zcta5ce10) as hrlytransindex FROM us_zip_codes_2013_mc u";
+          console.log("SELECT the_geom, the_geom_webmercator, (SELECT transband FROM ma_dma WHERE month = "+m+" and day = "+d+" and hourband = "+h+" AND merchzip = u.zcta5ce10) as band FROM us_zip_codes_2013_mc u")
+          return "SELECT the_geom, the_geom_webmercator, (SELECT transband FROM ma_dma WHERE month = "+m+" and day = "+d+" and hourband = "+h+" AND merchzip = u.zcta5ce10) as band FROM us_zip_codes_2013_mc u";
         }
         L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',{
           attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
         }).addTo(map);
 
-        var m = 1, d = 14, h = 12;
+        var m = 2, d = 3, h = 12;
         // add cartodb layer with one sublayer
         cartodb.createLayer(map, {
           user_name: 'ashmurali',
@@ -187,14 +182,12 @@
           $('.month').on('change',function(e){
             m = parseInt($('.month select').val()) ;
             if (m ==1){
-              $('.january').hide();$('.december').show();
-              d = $('.december select').val();
-            }
-            else if (m ==2){$('.january').show();$('.december').hide();
+              $('.february').hide();$('.january').show();
               d = $('.january select').val();
             }
-            console.log(m)
-            
+            else if (m ==2){$('.february').show();$('.january').hide();
+              d = $('.february select').val();
+            }
             layer.getSubLayer(0).setSQL(makeSql(m,d,h))
           });
             
@@ -203,12 +196,12 @@
             layer.getSubLayer(0).setSQL(makeSql(m,d,h))
           });
 
-          $('.january').on('change',function(e){
-            d = $('.january select').val()
+          $('.february').on('change',function(e){
+            d = $('.february select').val()
             layer.getSubLayer(0).setSQL(makeSql(m,d,h))
           });
-          $('.december').on('change',function(e){
-            d = $('.december select').val()
+          $('.january').on('change',function(e){
+            d = $('.january select').val()
             layer.getSubLayer(0).setSQL(makeSql(m,d,h))
           });
         });
