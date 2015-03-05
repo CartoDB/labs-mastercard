@@ -14,34 +14,20 @@
         <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.ie.css" />
     <![endif]-->
     <style>
-      #form{ position: absolute;bottom: 32px; right: 80px;z-index: 100;}
+      #form{ position: absolute;bottom: 32px; right: 50px;z-index: 100;}
       .styled-select {
          height: 29px;
          overflow: hidden;
          background-color: transparent;
          float: left;
       }
-
-      .styled-select.month {
-         width: 80px;
-         text-align: left;
-       }
-      .styled-select.day.january{
-         display: none;
-       }
-      .styled-select.day {
-         width: 30px;
-       }
-      .styled-select.hour {
-         width: 50px;
-       }
       .styled-select select {
          background: transparent;
          border: none;
          font-size: 14px;
          height: 29px;
          padding: 5px; /* If you add too much padding here, the options won't show in IE */
-         width: 100px;
+         width: 210px;
       }
        .styled-select select    { color: #000; }
     </style>
@@ -90,55 +76,14 @@
     
 
     <div id="form">
-      <div class="styled-select month">
+      <div class="styled-select date">
         <select>
-          <option value="1">January</option>
-          <option SELECTED value="2">February</option>
-        </select>
-      </div>
-      <div class="styled-select day january">
-        <select>
-          <option>14</option>
-          <option>15</option>
-          <option>16</option>
-          <option>17</option>
-          <option>18</option>
-          <option>19</option>
-          <option>20</option>
-          <option>21</option>
-          <option>22</option>
-          <option>23</option>
-          <option>24</option>
-          <option>25</option>
-          <option>26</option>
-          <option>27</option>
-          <option>28</option>
-          <option>29</option>
-          <option>30</option>
-          <option SELECTED>31</option>
-        </select>
-      </div>
-      <div class="styled-select day february">
-        <select>
-          <option>1</option>
-          <option>2</option>
-          <option SELECTED>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-        </select>
-      </div>
-      <div class="styled-select hour">
-        <select>
-          <option value="0">0:00</option>
-          <option value="3">3:00</option>
-          <option value="6">6:00</option>
-          <option value="9">9:00</option>
-          <option SELECTED value="12">12:00</option>
-          <option value="15">15:00</option>
-          <option value="18">18:00</option>
-          <option value="21">21:00</option>
-          <option value="24">24:00</option>
+          <option SELECTED value="1">Monday January 19 15:00</option>
+          <option value="2">Tuesday January 20 15:00</option>
+          <option value="3">Friday January 23 15:00</option>
+          <option value="4">Monday January 26 15:00</option>
+          <option value="5">Tuesday January 27 15:00</option>
+          <option value="6">Friday January 30 15:00</option>
         </select>
       </div>
     </div>
@@ -166,7 +111,8 @@
           attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
         }).addTo(map);
 
-        var m = 2, d = 3, h = 12;
+        var m = 1, d = 19, h = 15;
+        var date;
         // add cartodb layer with one sublayer
         cartodb.createLayer(map, {
           user_name: 'ashmurali',
@@ -179,31 +125,36 @@
         .addTo(map)
         .done(function(layer) {
 
-          $('.month').on('change',function(e){
-            m = parseInt($('.month select').val()) ;
-            if (m ==1){
-              $('.february').hide();$('.january').show();
-              d = $('.january select').val();
+          $('.date').on('change', function(e){
+            date = parseInt($('.date select').val());
+            console.log(date);
+            if (date == 1) {
+              m = 1, d = 19, h = 15;
+              console.log(m,d,h);
             }
-            else if (m ==2){$('.february').show();$('.january').hide();
-              d = $('.february select').val();
+            else if (date == 2) {
+              m = 1, d = 20, h = 15;
+              console.log(m,d,h);
             }
-            layer.getSubLayer(0).setSQL(makeSql(m,d,h))
+            else if (date == 3) {
+              m = 1, d = 23, h = 15;
+              console.log(m,d,h);
+            }
+            else if (date == 4) {
+              m = 1, d = 26, h = 15;
+              console.log(m,d,h);
+            }
+            else if (date == 5) {
+              m = 1,d = 27, h = 15;
+              console.log(m,d,h);
+            }
+            else if (date == 6) {
+              m = 1, d = 30, h = 15;
+              console.log(m,d,h);
+            }
+            layer.getSubLayer(0).setSQL(makeSql(m,d,h));
           });
-            
-          $('.hour').on('change',function(e){
-            h = $('.hour select').val()
-            layer.getSubLayer(0).setSQL(makeSql(m,d,h))
-          });
-
-          $('.february').on('change',function(e){
-            d = $('.february select').val()
-            layer.getSubLayer(0).setSQL(makeSql(m,d,h))
-          });
-          $('.january').on('change',function(e){
-            d = $('.january select').val()
-            layer.getSubLayer(0).setSQL(makeSql(m,d,h))
-          });
+          
         });
       }
 
