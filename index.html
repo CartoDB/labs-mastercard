@@ -84,24 +84,32 @@
         <div class="title-decoration-brand">
           <img src="img/brands.png" alt="mastercard and cartodb" />
         </div>
-
       </div>
     </div>
     
-
-    
-    <div id="map"></div>
     <div id="splash_screen" class="splash">
-      <p><a id="openModalLink" href="#openModal">What am I looking at?</a></p>
+      <h2><a id="openProject" href="#openProjectModal">What is this project?</a></h2>
+      <h2><a id="openDMA" href="#openDMAModal">What am I looking at right now?</a><h2>
       <p><a href="boston.html">Take a look at Boston during a snowstorm.</a></p>
     </div>
-    <div id="openModal" class="modalDialog title">
+
+    <div id="openProjectModal" class="modalDialog title">
       <div>
         <a href="#close" title="Close" class="close">X</a>
         <h1>CartoDB and MasterCard Combine to Leverage the Power of Location Intelligence</h1>
         <h2>Using the power of CartoDB’s technology, MasterCard visualizes local trends and insights from its global database. These data visualizations can be utilized to understand surge events such as extreme weather impacts, help predict transit and traffic impacts based on spend patterns, and garner insights about domestic and international tourism. With these insights, city governments can operate their cities more efficiently, companies can better understand their customers, and consumers can enjoy more tailored shopping experiences.</h2>
       </div>
     </div>
+    <div id="openDMAModal" class="modalDialog title">
+      <div>
+        <a href="#close" title="Close" class="close">X</a>
+        <h1>DMAs and Countries</h1>
+        <h2>Click on one of the markers representing US Designated Market Areas (DMAs). Connections will be drawn to countries around the world, showing the relative amount of financial transactions made by residents of that country within the selected DMA. For example, selecting Los Angeles reveals intense financial connections with China and Australia. Click on one of these connections to reveal a chart breaking down the country-to-DMA relationship into different transaction categories. Following the Los Angeles-China example, we see Chinese visiting Los Angeles execute the most transactions in the "Apparel" category. Click the arrow in the upper left to return and select another DMA.</h2>
+      </div>
+    </div>
+
+    
+    <div id="map"></div>
     <div id="chart">
       <div id="conn">
         <span class="cnt"></span>
