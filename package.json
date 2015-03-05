@@ -1,0 +1,13 @@
+{
+  "name": "mastercard",
+  "author": "Andrew Thompson <athompson@cartodb.com>",
+  "description": "A partnership between Mastercard and CartoDB",
+  "version" : "0.0.1",
+  "repository": {
+        "type": "git",
+        "url": "https://github.com/CartoDB/labs-mastercard.git"
+    },
+  "dependencies": {
+    "http-server": "~0.7.4"
+  }
+}
