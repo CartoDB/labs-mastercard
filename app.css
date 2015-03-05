@@ -164,8 +164,13 @@ html, body, #map {
   padding: 5px 10px 5px 5px;
 }
 .splash a {
-  color: #fff;
+  font-size: 14px;
+  color: rgba(255, 255, 255, .9);
 }
+.splash h2 {
+    font-size: 14px;
+    color: rgba(255, 255, 255, .9);
+  }
 
 .modalDialog {
   position: fixed;
