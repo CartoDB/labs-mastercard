@@ -271,3 +271,81 @@ html, body, #map {
     text-decoration: none;
     color: #333;
   }
+
+
+@media(max-width: 930px) {
+  .title {
+    right: 325px;
+    padding-right: 20px;
+  }
+  .title-decoration {
+    width: 270px;
+  }
+}
+
+@media(max-width: 790px) {
+  .title {
+    position: static;
+    padding-right: 220px;
+  }
+  .title:after {
+    display: none;
+  }
+  .title-decoration {
+    float: none;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    background: none;
+    height: auto;
+    margin: 0
+  }
+  .title-decoration:before {
+    display: none;
+  }
+  .title-decoration-brand {
+    right: 16px;
+    top: 16px;
+  }
+  .title h1 {
+    font-size: 18px;
+  }
+  .modalDialog > div {
+    width: 80%
+  }
+}
+
+
+@media(max-width: 630px) {
+  .title-container {
+    background: #EC6633;
+    padding: 20px;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+  .title {
+    background: none;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+  .title-txt {
+    text-align: center;
+    display: block;
+  }
+  .title-txt h2 {
+    display: none;
+  }
+  .title-decoration {
+    position: static;
+    width: 100%;
+  }
+  .title-decoration-brand {
+    position: static;
+    text-align: center;
+  }
+  .title-decoration-brand img {
+    height: 35px;
+  }
+}
+
