@@ -77,11 +77,17 @@
     </script>
   </head>
   <body>
+    <ul class="lst-menu">
+      <li><a href="index.html">The international DMA view.</a></li>
+      <li class="active"><a href="boston.html">Boston during a snowstorm</a></li>
+    </ul>
     <div class="title-container">
       <div class="title">
         <div id="back" class="hide"></div>
         <div class="title-txt">
-          <h1>Local Commerce / Global Scale</h1>
+          <h1>Local Commerce / Global Scale
+            <a id="openProject" href="#openProjectModal"><img src="img/icon-info.png" alt="info about this project" /></a>
+          </h1>
           <h2>A partnership between MasterCard and CartoDB</h2>
         </div>
       </div>
@@ -108,9 +114,7 @@
     </div>
 
     <div id="splash_screen" class="splash">
-      <h2><a id="openProject" href="#openProjectModal">What is this project?</a></h2>
-      <h2><a id="openBoston" href="#openBostonModal">What am I looking at right now?</a><h2>
-      <h2><a href="index.html">Go back to the international DMA view.</a></h2>
+      <a id="openBoston" href="#openBostonModal">What am I looking at right now?</a>
     </div>
     <div id="openProjectModal" class="modalDialog title">
       <a href="#close" title="Close" class="close">X</a>

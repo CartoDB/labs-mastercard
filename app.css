@@ -33,6 +33,11 @@ html, body, #map {
   display: inline-block;
   vertical-align: middle;
 }
+.title-txt img {
+  display: inline-block;
+
+  margin-left: 4px;
+}
 #chart{
   background: #EFEFF0;
   position: absolute;
@@ -156,16 +161,15 @@ html, body, #map {
 
 .splash {
   position: absolute;
-  top:110px;
-  left:20px;
+  right:20px;
+  top: 160px;
   padding:0px;
   z-index: 2;
-  background: #EC6633;
-  padding: 5px 10px 5px 5px;
 }
 .splash a {
   font-size: 14px;
-  color: rgba(255, 255, 255, .9);
+  color: #fff;
+  text-decoration: none;
 }
 .splash h2 {
     font-size: 14px;
@@ -194,6 +198,7 @@ html, body, #map {
 
   .modalDialog h1 {
     font-size: 20px;
+    line-height: 24px;
     text-transform: uppercase;
     padding-bottom: 20px;
     margin-bottom: 20px;
@@ -238,3 +243,31 @@ html, body, #map {
 
 }
 
+.lst-menu {
+  width: auto;
+  overflow: hidden;
+  background: #fff;
+  position: absolute;
+  left: 20px;
+  z-index: 20;
+  top: 120px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+  border-radius: 4px;
+}
+  .lst-menu > li {
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+  }
+  .lst-menu > li:last-child {
+    border-bottom: 0;
+  }
+  .lst-menu > li.active {
+    background:  #f5f5f5;
+  }
+  .lst-menu > li a {
+    display: block;
+    padding: 20px;
+    border-left: 1px solid rgba(255, 255, 255, .2);
+    text-decoration: none;
+    color: #333;
+  }
