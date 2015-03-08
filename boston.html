@@ -13,43 +13,6 @@
     <!--[if lte IE 8]>
         <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.ie.css" />
     <![endif]-->
-    <style>
-      #form{ 
-        position: absolute;
-        bottom: 50px;
-        right: 20px;
-        z-index: 100;
-      }
-      .styled-select {
-          background-color: #fff;
-          box-shadow: 0 1px 5px rgba(0,0,0,0.65);
-          border-radius: 4px;
-          position: relative;
-      }
-      .styled-select:after {
-        content: "";
-        position: absolute;
-        width: 0;
-        height: 0;
-        border: 8px solid transparent;
-        border-top: 8px solid #222;
-        right: 20px;
-        top: 50%;
-        border-radius: 2px;
-        margin-top: -6px;
-      }
-      .styled-select select {
-        position: relative;
-        background: transparent;
-        border: none;
-        padding: 12px 50px 12px 20px;
-        appearance: none;
-        -webkit-appearance: none;
-        font: 14px Frutiger, 'Istok Web',  "Frutiger Linotype", Arial, sans-serif;
-        color: #000;
-      }
-
-    </style>
     <script type="cartocss/html" id="choro_template">
 #us_zip_codes_2013_mc{
   polygon-fill: transparent;
@@ -116,14 +79,14 @@
     <div id="splash_screen" class="splash">
       <a id="openBoston" href="#openBostonModal">What am I looking at right now?</a>
     </div>
-    <div id="openProjectModal" class="modalDialog title">
+    <div id="openProjectModal" class="modalDialog">
       <a href="#close" title="Close" class="close">X</a>
       <div>
         <h1>CartoDB and MasterCard Combine to Leverage the Power of Location Intelligence</h1>
         <h2>Using the power of CartoDB’s technology, MasterCard visualizes local trends and insights from its global database. These data visualizations can be utilized to understand surge events such as extreme weather impacts, help predict transit and traffic impacts based on spend patterns, and garner insights about domestic and international tourism. With these insights, city governments can operate their cities more efficiently, companies can better understand their customers, and consumers can enjoy more tailored shopping experiences.</h2>
       </div>
     </div>
-    <div id="openBostonModal" class="modalDialog title">
+    <div id="openBostonModal" class="modalDialog">
       <a href="#close" title="Close" class="close">X</a>
       <div>
         <h1>Boston: A Snowy Economy</h1>
