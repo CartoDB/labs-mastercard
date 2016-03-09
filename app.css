@@ -3,6 +3,13 @@ html, body, #map {
   font-family: Frutiger, 'Istok Web',  "Frutiger Linotype", Arial, sans-serif;
   background: lightgray;
 }
+#map {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
 
 #back {
   display: inline-block;
@@ -32,6 +39,11 @@ html, body, #map {
 .title-txt {
   display: inline-block;
   vertical-align: middle;
+}
+.title-txt img {
+  display: inline-block;
+
+  margin-left: 4px;
 }
 #chart{
   background: #EFEFF0;
@@ -154,3 +166,337 @@ html, body, #map {
   display: block;
 }
 
+.splash {
+  position: absolute;
+  right:20px;
+  top: 160px;
+  padding:0px;
+  z-index: 2;
+}
+.splash a {
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+  background: rgba(0, 0, 0, .3);
+  padding: 8px 12px;
+
+}
+.splash h2 {
+    font-size: 14px;
+    color: rgba(255, 255, 255, .9);
+  }
+
+.modalDialog {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 99999;
+  opacity:0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  pointer-events: none;
+}
+
+.modalDialog:target {
+  opacity:1;
+  pointer-events: auto;
+}
+
+  .modalDialog h1 {
+    font-size: 20px;
+    line-height: 24px;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+    color: #fff;
+  }
+  .modalDialog h2 {
+    font-size: 15px;
+    color: rgba(255, 255, 255, .9);
+    line-height: 25px;
+  }
+
+.modalDialog > div {
+  width: 600px;
+  position: relative;
+  margin: 10% auto;
+  padding: 20px 20px 20px 20px;
+  border-radius: 10px;
+  text-align: center
+}
+
+.close {
+  color: rgba(255, 255, 255, .4);
+  position: absolute;
+  right: 20px;
+  text-align: center;
+  top: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 50%;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, .4);
+  line-height: 42px;
+}
+
+.close:hover { 
+  border: 1px solid rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 1);
+
+}
+
+.lst-menu {
+  width: auto;
+  overflow: hidden;
+  background: #fff;
+  position: absolute;
+  left: 20px;
+  z-index: 20;
+  top: 120px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+  border-radius: 4px;
+}
+  .lst-menu > li {
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+  }
+  .lst-menu > li:last-child {
+    border-bottom: 0;
+  }
+  .lst-menu > li.active {
+    background:  #f5f5f5;
+  }
+  .lst-menu > li a {
+    display: block;
+    padding: 20px;
+    border-left: 1px solid rgba(255, 255, 255, .2);
+    text-decoration: none;
+    color: #333;
+  }
+
+
+#form{ 
+  position: absolute;
+  bottom: 50px;
+  right: 20px;
+  z-index: 100;
+}
+.styled-select {
+    background-color: #fff;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    border-radius: 4px;
+    position: relative;
+}
+.styled-select:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-top: 8px solid #222;
+  right: 20px;
+  top: 50%;
+  border-radius: 2px;
+  margin-top: -6px;
+}
+.styled-select select {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 12px 50px 12px 20px;
+  appearance: none;
+  -webkit-appearance: none;
+  font: 14px Frutiger, 'Istok Web',  "Frutiger Linotype", Arial, sans-serif;
+  color: #000;
+}
+
+@media(max-width: 1012px) {
+  .title {
+    right: 325px;
+    padding-right: 20px;
+  }
+  .title-decoration {
+    width: 270px;
+  }
+}
+
+@media(max-width: 865px) {
+  .title {
+    position: static;
+    padding-right: 220px;
+  }
+  .title:after {
+    display: none;
+  }
+  .title-decoration {
+    float: none;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    background: none;
+    height: auto;
+    margin: 0
+  }
+  .title-decoration:before {
+    display: none;
+  }
+  .title-decoration-brand {
+    right: 16px;
+    top: 16px;
+  }
+  .title h1 {
+    font-size: 18px;
+  }
+  .modalDialog > div {
+    width: 80%
+  }
+  #back {
+    position: absolute;
+    margin: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: auto;
+  }
+  #back.hide + .title-txt {
+    margin-left: 0;
+  }
+  #back + .title-txt {
+    margin-left: 80px;
+  }
+  .splash {
+    top: 125px;
+  }
+
+}
+
+
+@media(max-width: 630px) {
+
+  .title-container {
+    background: #EC6633;
+    padding: 20px;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+  .title {
+    background: none;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+  .title-txt {
+    text-align: center;
+    display: block;
+    padding: 0 25px;
+  }
+  .title-txt h2 {
+    display: none;
+  }
+  .title-decoration {
+    position: static;
+    width: 100%;
+  }
+  .title-decoration-brand {
+    position: static;
+    text-align: center;
+  }
+  .title-decoration-brand img {
+    height: 35px;
+  }
+  .leaflet-control-zoom {
+    display: none;
+  }
+  .lst-menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .8);
+    border-radius: 0;
+    box-shadow: 0 0 0;
+    top: auto;
+    z-index: 10000;
+    overflow: visible
+  }
+  .lst-menu > li {
+    float: left;
+    display: inline;
+    width: 50%;
+    border: 0;
+  }
+  .lst-menu > li a{
+    float: left;
+    display: inline;
+    width: 50%;
+    border-left: 1px solid rgba(255, 255, 255, .2);
+    color: #fff;
+  }
+  .lst-menu > li:first-child a{
+    border-left: 0;
+  }
+  .lst-menu > li.active {
+    background: none;
+    position: relative;
+  }
+  .lst-menu > li.active:before {
+    content:"";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-bottom: 8px solid rgba(0, 0, 0, .8);
+    left: 20px;
+    top: -16px;
+  }
+
+  .lst-menu > li.active a {
+    background: none;
+    color: rgba(255, 255, 255, .6);
+  }
+  #back {
+    position: absolute;
+    margin: 0;
+    top: 20px;
+    bottom: 0;
+    left: 20px;
+    width: 21px;
+    height: 20px;
+    background-color: transparent;
+    background-position: left top;
+  }
+  #back + .title-txt {
+    margin-left: 0;
+  }
+  #chart {
+    bottom: 120px;
+    left: 50%;
+    right: auto;
+    margin-left: -170px;
+  }
+  #form {
+    right: auto;
+    left: 20px;
+    bottom: 110px;
+  }
+  .cartodb-logo {
+    display: none !important;
+  }
+  .splash {
+    top: 135px;
+  }
+}
+
+@media (max-width: 432px) {
+  .splash {
+    top: 155px;
+  }
+}
