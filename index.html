@@ -4,15 +4,12 @@
     <title>Mastercard</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
-    <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="https://cartodb.com/favicon.ico" />
+    <link href='https://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'>
     <link href='reset.css' rel='stylesheet' type='text/css'>
     <link href='app.css' rel='stylesheet' type='text/css'>
     <script src="Chart.min.js"></script>
-    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
-    <!--[if lte IE 8]>
-        <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.ie.css" />
-    <![endif]-->
+    <link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/themes/css/cartodb.css" />
 
     <script type="cartocss/html" id="arcs_template">
       #dma_tight_arcs{
@@ -137,7 +134,7 @@
       </ul>
     </div>
     <!-- include cartodb.js library -->
-    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.12/cartodb.uncompressed.js"></script>
+    <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.12/cartodb.uncompressed.js"></script>
 
     <script>
       var colorIdx = {
@@ -344,10 +341,10 @@
           }
         }
 
-        L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',{
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png',{
           attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
         }).addTo(map);
-        cartodb.createLayer(map, 'http://ashmurali.cartodb.com/api/v2/viz/3ca35240-bb7d-11e4-975b-0e0c41326911/viz.json', {search: false, options: {
+        cartodb.createLayer(map, 'https://ashmurali.cartodb.com/api/v2/viz/3ca35240-bb7d-11e4-975b-0e0c41326911/viz.json', {search: false, options: {
             interactivity: "cartodb_id, dmaname",
         }})
         .done(function(layers) {

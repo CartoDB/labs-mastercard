@@ -4,15 +4,12 @@
     <title>Mastercard</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
-    <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="https://cartodb.com/favicon.ico" />
+    <link href='https://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'>
     <link href='reset.css' rel='stylesheet' type='text/css'>
     <link href='app.css' rel='stylesheet' type='text/css'>
     <script src="Chart.min.js"></script>
-    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
-    <!--[if lte IE 8]>
-        <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.ie.css" />
-    <![endif]-->
+    <link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/themes/css/cartodb.css" />
     <style>
       #form{ position: absolute;bottom: 32px; right: 80px;z-index: 100;}
       .styled-select {
@@ -146,7 +143,7 @@
     
     <div id="map"></div>
     <!-- include cartodb.js library -->
-    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.12/cartodb.uncompressed.js"></script>
+    <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.12/cartodb.uncompressed.js"></script>
 
     <script>
       function main() {
@@ -162,7 +159,7 @@
           console.log("SELECT the_geom, the_geom_webmercator, (SELECT transband FROM ma_dma WHERE month = "+m+" and day = "+d+" and hourband = "+h+" AND merchzip = u.zcta5ce10) as band FROM us_zip_codes_2013_mc u")
           return "SELECT the_geom, the_geom_webmercator, (SELECT transband FROM ma_dma WHERE month = "+m+" and day = "+d+" and hourband = "+h+" AND merchzip = u.zcta5ce10) as band FROM us_zip_codes_2013_mc u";
         }
-        L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',{
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png',{
           attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
         }).addTo(map);
 
