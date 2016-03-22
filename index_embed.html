@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mastercard</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="http://cartodb.com/favicon.ico" />
+    <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'>
+    <link href='reset.css' rel='stylesheet' type='text/css'>
+    <link href='app_embed.css' rel='stylesheet' type='text/css'>
+    <script src="Chart.min.js"></script>
+    <link rel="stylesheet" href="http://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/themes/css/cartodb.css" />
+
+    <script type="cartocss/html" id="arcs_template">
+      #dma_tight_arcs{
+        ::glowY{
+          line-width: 2;
+          line-color: #fff;
+          line-opacity:0.7;
+          image-filters: agg-stack-blur(1,1);
+        }
+        line-width: 2;
+        line-opacity: 1;
+        line-color: #FFFFB2;
+        line-cap: round;
+        line-comp-op: multiply;
+        line-smooth: 0.8;
+        line-clip:false;
+      }
+      #dma_tight_arcs [ cntryrankwithindma <= 13] {
+        line-color: #FED976;
+        line-width: 2.5;
+      }
+      #dma_tight_arcs [ cntryrankwithindma <= 8] {
+        line-color: #FEB24C;
+        line-width: 3;
+      }
+      #dma_tight_arcs [ cntryrankwithindma <= 5] {
+        line-color: #FD8D3C;
+        line-width: 3.5;
+      }
+      #dma_tight_arcs [ cntryrankwithindma <= 3] {
+        ::glowY{
+          line-width: 4;
+          line-color: #aaa;
+          image-filters: agg-stack-blur(3,3);
+        }
+        line-width: 4;
+        line-color: #FC4E2A;
+      }
+      #dma_tight_arcs [ cntryrankwithindma <= 2] {
+        ::glowY{
+          line-width: 5;
+          line-color: #aaa;
+          image-filters: agg-stack-blur(4,4);
+        }
+        line-width: 5;
+        line-color: #E31A1C;
+      }
+      #dma_tight_arcs [ cntryrankwithindma <= 1] {
+        ::glowZ{
+          line-width: 6;
+          line-color: #B10026;
+          image-filters: agg-stack-blur(6,6);
+        }
+        line-width: 6;
+        line-color: #B10026;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="title-container">
+      <div class="title">
+        <div id="back" class="hide"></div>
+        <div class="title-txt">
+          <h1>Local Commerce / Global Scale</h1>
+          <h2>A partnership between MasterCard and CartoDB</h2>
+          <img src="img/brands.png" alt="mastercard and cartodb"  class="show-mobile" height="32"/>
+        </div>
+      </div>
+      <div class="title-decoration">
+        <div class="title-decoration-brand">
+          <img src="img/brands.png" alt="mastercard and cartodb" />
+        </div>
+
+      </div>
+    </div>
+    
+
+    
+    <div id="map"></div>
+    <div id="chart">
+      <div id="conn">
+        <span class="cnt"></span>
+        <span class="arr">
+          <img src="img/direccion.png" />
+        </span>
+        <span class="loc"></span>
+      </div>
+      <canvas id="chart-area"></canvas>
+      <ul class="lst-options">
+        <li>
+          <img src="img/options/plane.png" />
+        </li>
+        <li>
+          <img src="img/options/sporting.png" />
+        </li>
+        <li>
+          <img src="img/options/restaurants.png" />
+        </li>
+        <li>
+          <img src="img/options/otherretail.png" />
+        </li>
+        <li>
+          <img src="img/options/other.png" />
+        </li>
+        <li>
+          <img src="img/options/gasstation.png" />
+        </li>
+        <li>
+          <img src="img/options/financial.png" />
+        </li>
+        <li>
+          <img src="img/options/everyday.png" />
+        </li>
+        <li>
+          <img src="img/options/entertainment.png" />
+        </li>
+        <li>
+          <img src="img/options/books.png" />
+        </li>
+        <li>
+          <img src="img/options/apparel.png" />
+        </li>
+      </ul>
+    </div>
+    <!-- include cartodb.js library -->
+    <script src="http://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.12/cartodb.uncompressed.js"></script>
+
+    <script>
+      var colorIdx = {
+        'FinancialSvcs':{color: 'rgb(166,206,227)', text: 'Financial Services'},
+        'Everyday':{color: 'rgb(31,120,180)', text: 'Everyday'},
+        'Education-Books-Computers':{color: 'rgb(178,223,138)', text: 'Education'},
+        'SportingGoods':{color: 'rgb(51,160,44)', text: 'Sporting Goods'},
+        'GasStations':{color: 'rgb(251,154,153)', text: 'Gas'},
+        'OtherRetail':{color: 'rgb(227,26,28)', text: 'Retail (other)'},
+        'Restaurants':{color: 'rgb(253,191,111)', text: 'Restaurants'},
+        'Entertainment':{color: 'rgb(255,127,0)', text: 'Entertainment'},
+        'Other':{color: 'rgb(202,178,214)', text: 'Other'},
+        'Apparel':{color: 'rgb(106,61,154)', text: 'Apparel'},
+        'Travel':{color: 'rgb(255,255,153)', text: 'Travel'}
+      }
+      globalFont = 'Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif';
+      chartOptions = {
+          // Boolean - Whether to animate the chart
+          animation: true,
+          // Number - Number of animation steps
+          animationSteps: 60,
+          // String - Animation easing effect
+          animationEasing: "easeOutQuart",
+          // Boolean - If we should show the scale at all
+          showScale: false,
+          // Boolean - If we want to override with a hard coded scale
+          scaleOverride: false,
+          // ** Required if scaleOverride is true **
+          // Number - The number of steps in a hard coded scale
+          scaleSteps: null,
+          // Number - The value jump in the hard coded scale
+          scaleStepWidth: null,
+          // Number - The scale starting value
+          scaleStartValue: null,
+          // String - Colour of the scale line
+          scaleLineColor: "rgba(0,0,0,.1)",
+          // Number - Pixel width of the scale line
+          scaleLineWidth: 0,
+          // Boolean - Whether to show labels on the scale
+          scaleShowLabels: true,
+          // Interpolated JS string - can access value
+          scaleLabel: "<%=value%>",
+          // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
+          scaleIntegersOnly: true,
+          // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+          scaleBeginAtZero: true,
+          //Boolean - Whether grid lines are shown across the chart
+          scaleShowGridLines : true,
+          //String - Colour of the grid lines
+          scaleGridLineColor : "rgba(0,0,0,.05)",
+          //Number - Width of the grid lines
+          scaleGridLineWidth : 1,
+          //Boolean - If there is a stroke on each bar
+          barShowStroke : false,
+          //Number - Spacing between each of the X value sets
+          barValueSpacing : 1,
+          // String - Scale label font declaration for the scale label
+          scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+          // Number - Scale label font size in pixels
+          scaleFontSize: 12,
+          // String - Scale label font weight style
+          scaleFontStyle: "normal",
+          // String - Scale label font colour
+          scaleFontColor: "#666",
+          // Boolean - whether or not the chart should be responsive and resize when the browser does.
+          responsive: false,
+          // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+          maintainAspectRatio: true,
+          // Boolean - Determines whether to draw tooltips on the canvas or not
+          showTooltips: true,
+          // Function - Determines whether to execute the customTooltips function instead of drawing the built in tooltips (See [Advanced - External Tooltips](#advanced-usage-custom-tooltips))
+          customTooltips: false,
+          // Array - Array of string names to attach tooltip events
+          tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+          // String - Tooltip background colour
+          tooltipFillColor: "rgba(0,0,0,0.8)",
+          // String - Tooltip label font declaration for the scale label
+          tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+          // Number - Tooltip label font size in pixels
+          tooltipFontSize: 12,
+          // String - Tooltip font weight style
+          tooltipFontStyle: "normal",
+          // String - Tooltip label font colour
+          tooltipFontColor: "#fff",
+          // String - Tooltip title font declaration for the scale label
+          tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+          // Number - Tooltip title font size in pixels
+          tooltipTitleFontSize: 12,
+          // String - Tooltip title font weight style
+          tooltipTitleFontStyle: "bold",
+          // String - Tooltip title font colour
+          tooltipTitleFontColor: "#fff",
+          // Number - pixel width of padding around tooltip text
+          tooltipYPadding: 12,
+          // Number - pixel width of padding around tooltip text
+          tooltipXPadding: 12,
+          // Number - Size of the caret on the tooltip
+          tooltipCaretSize: 8,
+          // Number - Pixel radius of the tooltip border
+          tooltipCornerRadius: 2,
+          // Number - Pixel offset from point x to tooltip edge
+          tooltipXOffset: 10,
+          // String - Template string for single tooltips
+          tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+          // String - Template string for multiple tooltips
+          multiTooltipTemplate: "<%= value %>",
+          // Function - Will fire on animation progression.
+          onAnimationProgress: function(){},
+          // Function - Will fire on animation completion.
+          onAnimationComplete: function(){}
+
+      }
+      function main() {
+
+        var username = "ashmurali";
+        var tablename = "dma_distinct_ma";
+        var connLayer, masterLayer, map;
+        var centerD = [38.16, -97.82];
+        var zoomD = 4;
+
+        $('#back').click(function(){
+          reset();
+        })
+        // create leaflet map
+        map = L.map('map', { 
+          center: centerD,
+          zoom: zoomD
+        })
+
+        function reset(){
+          connLayer.getSubLayer(0).hide();
+          masterLayer.show();
+          map.setView(centerD, zoomD);
+          $('#back').addClass('hide');
+          $('#chart').hide();
+        }
+
+        var chartObj;
+        function drawChart(data){
+            var ctx = document.getElementById("chart-area").getContext("2d");
+            if(chartObj){
+              chartObj.destroy();
+            }
+            chartObj = new Chart(ctx).Bar(data, chartOptions);
+            window.myPolarArea = chartObj;
+
+        }
+        function setupChart(dmaname, crdhldrcntry,cntryname){
+          $('.loc').text(dmaname.split('-')[0]);
+          $('.cnt').text(cntryname);
+          var sql = cartodb.SQL({ user: 'andrew' });
+              sql.execute("SELECT dmaname,crdhldrcntry,merchdma,indgroup,shareoftransindex::int FROM dma_polar_area WHERE dmaname = '"+dmaname+"' AND crdhldrcntry='"+crdhldrcntry+"'").done(function(data) {
+
+              var row_data = data.rows.map(function(r) {
+                      return {
+                color: colorIdx[r.indgroup].color,
+                highlight: "#616774",
+                        label: colorIdx[r.indgroup].text,
+                        value: r.shareoftransindex
+                      }
+                    });
+
+                var data = {
+                    labels: _.pluck(row_data, "label"),
+                    datasets: [
+                      
+                        {
+                            fillColor: "#F5AF33",
+                            highlightFill: "#F19833",
+                            data: _.pluck(row_data, "value")
+                        }
+                    ]
+                };
+
+                drawChart(data)
+              });
+        }
+        function createConnections(dmaname){
+          $('#back').removeClass('hide');
+          var nsql = "select * from dma_tight_arcs WHERE dmaname = '"+dmaname+"' AND cntryrankwithindma <= 20 ORDER BY len DESC";
+          if (!connLayer){
+            cartodb.createLayer(map, {
+              user_name: username,
+              type: 'cartodb',
+              sublayers: [{
+                 sql: nsql,
+                 cartocss: $('#arcs_template').html(),
+                 interactivity: 'cartodb_id, dmaname, crdhldrcntry,cntryname'
+              }]
+            })
+            .addTo(map)
+            .done(function(layers) {
+              connLayer = layers;
+              cdb.vis.Vis.addCursorInteraction(map, connLayer.getSubLayer(0));
+              connLayer.getSubLayer(0).on('featureClick', function(e, pos, pixel, data) {
+                $('#chart').show();
+                setupChart(data.dmaname, data.crdhldrcntry,data.cntryname);
+              });
+              connLayer.getSubLayer(0).setInteraction(true);
+            });
+          } else {
+            connLayer.getSubLayer(0).setSQL(nsql);
+            connLayer.getSubLayer(0).show();
+          }
+        }
+
+        L.tileLayer('http://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png',{
+          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+        }).addTo(map);
+        cartodb.createLayer(map, 'http://ashmurali.cartodb.com/api/v2/viz/3ca35240-bb7d-11e4-975b-0e0c41326911/viz.json', {search: false, options: {
+            interactivity: "cartodb_id, dmaname",
+        }})
+        .done(function(layers) {
+          masterLayer = layers;
+          masterLayer.setInteraction(true);
+          cdb.vis.Vis.addCursorInteraction(map, masterLayer);
+          masterLayer.on('featureClick', function(e, pos, pixel, data) {
+            masterLayer.hide();
+            masterLayer.tooltip.hide()
+            map.setZoom(zoomD-2);
+            createConnections(data.dmaname);
+            // masterLayer.trigger('featureOut');
+          });
+        }).addTo(map)
+        .error(function(err) {
+          console.log(err);
+        });
+      }
+
+      window.onload = main;
+    </script>
+  </body>
+</html>
