@@ -69,11 +69,17 @@
     </script>
   </head>
   <body>
+    <ul class="lst-menu">
+      <li class="active"><a href="#">The international DMA view.</a></li>
+      <li><a href="boston.html">Boston during a snowstorm</a></li>
+    </ul>
     <div class="title-container">
       <div class="title">
         <div id="back" class="hide"></div>
         <div class="title-txt">
-          <h1>Local Commerce / Global Scale</h1>
+          <h1>Local Commerce / Global Scale
+            <a id="openProject" href="#openProjectModal"><img src="img/icon-info.png" alt="info about this project" /></a>
+          </h1>
           <h2>A partnership between MasterCard and CartoDB</h2>
         </div>
       </div>
@@ -81,10 +87,27 @@
         <div class="title-decoration-brand">
           <img src="img/brands.png" alt="mastercard and cartodb" />
         </div>
-
       </div>
     </div>
     
+    <div id="splash_screen" class="splash">
+      <a id="openDMA" href="#openDMAModal">What am I looking at right now?</a>
+    </div>
+
+    <div id="openProjectModal" class="modalDialog">
+      <a href="#close" title="Close" class="close">X</a>
+      <div>
+        <h1>CartoDB and MasterCard Combine to Leverage the Power of Location Intelligence</h1>
+        <h2>Using the power of CartoDB’s technology, MasterCard visualizes local trends and insights from its global database. These data visualizations can be utilized to understand surge events such as extreme weather impacts, help predict transit and traffic impacts based on spend patterns, and garner insights about domestic and international tourism. With these insights, city governments can operate their cities more efficiently, companies can better understand their customers, and consumers can enjoy more tailored shopping experiences.</h2>
+      </div>
+    </div>
+    <div id="openDMAModal" class="modalDialog">
+      <a href="#close" title="Close" class="close">X</a>
+      <div>
+        <h1>DMAs and Countries</h1>
+        <h2>Click on one of the markers representing US Designated Market Areas (DMAs). Connections will be drawn to countries around the world, showing the relative amount of financial transactions made by residents of that country within the selected DMA. For example, selecting Los Angeles reveals intense financial connections with China and Australia. Click on one of these connections to reveal a chart breaking down the country-to-DMA relationship into different transaction categories. Following the Los Angeles-China example, we see Chinese visiting Los Angeles execute the most transactions in the "Apparel" category. Click the arrow in the upper left to return and select another DMA.</h2>
+      </div>
+    </div>
 
     
     <div id="map"></div>
@@ -238,7 +261,7 @@
           // Number - Pixel offset from point x to tooltip edge
           tooltipXOffset: 10,
           // String - Template string for single tooltips
-          tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+          tooltipTemplate: "<%if (label){%><%=label%> <%}%>",
           // String - Template string for multiple tooltips
           multiTooltipTemplate: "<%= value %>",
           // Function - Will fire on animation progression.
@@ -261,7 +284,8 @@
         // create leaflet map
         map = L.map('map', { 
           center: centerD,
-          zoom: zoomD
+          zoom: zoomD,
+          scrollWheelZoom: false
         })
 
         function reset(){
