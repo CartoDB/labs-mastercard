@@ -345,7 +345,7 @@
         L.tileLayer('//cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png',{
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a>'
         }).addTo(map);
-        cartodb.createLayer(map, 'https://ashmurali.cartodb.com/api/v2/viz/3ca35240-bb7d-11e4-975b-0e0c41326911/viz.json', {http:true, search: false, options: {
+        cartodb.createLayer(map, 'https://ashmurali.cartodb.com/api/v2/viz/3ca35240-bb7d-11e4-975b-0e0c41326911/viz.json', {https:true, search: false, options: {
             interactivity: "cartodb_id, dmaname",
         }})
         .done(function(layers) {
